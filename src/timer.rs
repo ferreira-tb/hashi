@@ -3,7 +3,6 @@ use js_sys::Function;
 use std::pin::Pin;
 use std::task::{Context, Poll};
 use std::time::Duration;
-use std::u32;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
