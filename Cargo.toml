@@ -1,7 +1,7 @@
 [package]
 name = "hashi"
 description = "WASM utilities"
-version = "0.0.2"
+version = "0.0.3"
 edition = "2024"
 rust-version = "1.91"
 license = "MIT"
@@ -19,7 +19,16 @@ wasm-bindgen-futures = "0.4"
 
 [dependencies.web-sys]
 version = "0.3"
-features = ["Document", "Element", "HtmlBodyElement", "HtmlElement", "HtmlHeadElement", "Location", "NodeList", "Window"]
+features = [
+  "Document",
+  "Element",
+  "HtmlBodyElement",
+  "HtmlElement",
+  "HtmlHeadElement",
+  "Location",
+  "NodeList",
+  "Window",
+]
 
 [lints.rust]
 async_fn_in_trait = "allow"

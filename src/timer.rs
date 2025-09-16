@@ -1,28 +1,13 @@
+use crate::window;
 use futures::channel::oneshot;
-use js_sys::Function;
 use std::pin::Pin;
 use std::task::{Context, Poll};
 use std::time::Duration;
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen]
-extern "C" {
-  #[wasm_bindgen(js_name = "setTimeout")]
-  pub fn set_timeout(handler: &Function, timeout: u32) -> JsValue;
-
-  #[wasm_bindgen(js_name = "setInterval")]
-  pub fn set_interval(handler: &Function, timeout: u32) -> JsValue;
-
-  #[wasm_bindgen(js_name = "clearTimeout")]
-  pub fn clear_timeout(handle: JsValue) -> JsValue;
-
-  #[wasm_bindgen(js_name = "clearInterval")]
-  pub fn clear_interval(handle: JsValue) -> JsValue;
-}
-
 #[must_use]
 pub struct Timeout {
-  id: Option<JsValue>,
+  id: Option<i32>,
   closure: Option<Closure<dyn FnMut()>>,
 }
 
@@ -37,13 +22,15 @@ impl Timeout {
       .unchecked_ref::<js_sys::Function>();
 
     let duration = duration.as_millis();
-    let timeout = u32::try_from(duration).unwrap_or(u32::MAX);
-    let id = set_timeout(closure_ref, timeout);
+    let timeout = i32::try_from(duration).unwrap_throw();
+    let id = window()
+      .set_timeout_with_callback_and_timeout_and_arguments_0(closure_ref, timeout)
+      .unwrap_throw();
 
     Timeout { id: Some(id), closure: Some(closure) }
   }
 
-  pub fn forget(mut self) -> JsValue {
+  pub fn forget(mut self) -> i32 {
     let id = self.id.take().unwrap_throw();
     self.closure.take().unwrap_throw().forget();
     id
@@ -56,8 +43,8 @@ impl Timeout {
 
 impl Drop for Timeout {
   fn drop(&mut self) {
-    if let Some(id) = self.id.take() {
-      clear_timeout(id);
+    if let Some(id) = self.id {
+      window().clear_timeout_with_handle(id);
     }
   }
 }
