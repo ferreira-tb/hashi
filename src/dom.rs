@@ -38,14 +38,14 @@ pub fn query_all(selector: &str) -> Vec<web_sys::Element> {
     .unwrap_throw()
 }
 
-pub async fn wait_element(selector: &str, max_secs: u32) -> Option<web_sys::Element> {
+pub async fn wait_element(selector: &str, secs: u32) -> Option<web_sys::Element> {
   let interval = Duration::from_millis(100);
-  let timeout = Date::now() + f64::from(max_secs);
+  let timeout = Date::now() + (f64::from(secs) * 1000.0);
 
   loop {
     if let Some(element) = query(selector) {
       return Some(element);
-    } else if Date::now() >= timeout {
+    } else if Date::now() > timeout {
       return None;
     }
 
