@@ -2,7 +2,10 @@
 
 pub mod dom;
 pub mod location;
+pub mod prelude;
 pub mod timer;
+
+pub use prelude::*;
 
 use wasm_bindgen::prelude::*;
 
