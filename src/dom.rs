@@ -1,5 +1,6 @@
 use crate::timer::sleep;
-use std::time::{Duration, Instant};
+use js_sys::Date;
+use std::time::Duration;
 use wasm_bindgen::prelude::*;
 
 pub fn document() -> web_sys::Document {
@@ -37,14 +38,14 @@ pub fn query_all(selector: &str) -> Vec<web_sys::Element> {
     .unwrap_throw()
 }
 
-pub async fn wait_element(selector: &str, timeout_secs: u64) -> Option<web_sys::Element> {
-  let start = Instant::now();
-  let timeout = Duration::from_secs(timeout_secs);
+pub async fn wait_element(selector: &str, max_secs: u32) -> Option<web_sys::Element> {
   let interval = Duration::from_millis(100);
+  let timeout = Date::now() + f64::from(max_secs);
+
   loop {
     if let Some(element) = query(selector) {
       return Some(element);
-    } else if start.elapsed() >= timeout {
+    } else if Date::now() >= timeout {
       return None;
     }
 
