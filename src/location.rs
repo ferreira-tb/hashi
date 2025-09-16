@@ -52,3 +52,35 @@ pub fn replace(url: &str) {
 pub fn search() -> String {
   location().search().unwrap_throw()
 }
+
+pub fn set_hash(value: &str) {
+  location().set_hash(value).unwrap_throw()
+}
+
+pub fn set_host(value: &str) {
+  location().set_host(value).unwrap_throw()
+}
+
+pub fn set_hostname(value: &str) {
+  location().set_hostname(value).unwrap_throw()
+}
+
+pub fn set_href(value: &str) {
+  location().set_href(value).unwrap_throw()
+}
+
+pub fn set_pathname(value: &str) {
+  location().set_pathname(value).unwrap_throw()
+}
+
+pub fn set_port(value: &str) {
+  location().set_port(value).unwrap_throw()
+}
+
+pub fn set_protocol(value: &str) {
+  location().set_protocol(value).unwrap_throw()
+}
+
+pub fn set_search(value: &str) {
+  location().set_search(value).unwrap_throw()
+}
