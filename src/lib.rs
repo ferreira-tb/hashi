@@ -12,3 +12,7 @@ use wasm_bindgen::prelude::*;
 pub fn window() -> web_sys::Window {
   web_sys::window().unwrap_throw()
 }
+
+pub fn stop() {
+  window().stop().unwrap_throw();
+}
