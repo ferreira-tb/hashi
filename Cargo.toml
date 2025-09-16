@@ -27,6 +27,9 @@ features = [
   "Location",
   "NodeList",
   "Window",
+  'Headers',
+  'Request',
+  'Response',
 ]
 
 [lints.rust]
