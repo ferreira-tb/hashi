@@ -1,7 +1,7 @@
 [package]
 name = "hashi"
 description = "WASM utilities"
-version = "0.0.5"
+version = "0.0.6"
 edition = "2024"
 rust-version = "1.91"
 license = "MIT"
@@ -11,7 +11,6 @@ authors = ["Andrew Ferreira <andrew.shien2@gmail.com>"]
 categories = ["external-ffi-bindings", "wasm"]
 
 [dependencies]
-bon = "3.7"
 futures = "0.3"
 js-sys = "0.3"
 wasm-bindgen = "0.2"
