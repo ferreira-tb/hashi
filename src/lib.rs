@@ -16,7 +16,7 @@ pub fn window() -> web_sys::Window {
 }
 
 pub async fn fetch(request: &Request) -> Result<Response, JsValue> {
-  let promise = window().fetch_with_request(&request);
+  let promise = window().fetch_with_request(request);
   let response = JsFuture::from(promise).await?;
   Ok(response.dyn_into().unwrap_throw())
 }

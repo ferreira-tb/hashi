@@ -26,7 +26,7 @@ pub fn query(selector: &str) -> Option<Element> {
     .unwrap_throw()
 }
 
-pub fn query_in(element: Element, selector: &str) -> Option<Element> {
+pub fn query_in(element: &Element, selector: &str) -> Option<Element> {
   element
     .query_selector(selector)
     .unwrap_throw()
@@ -40,7 +40,7 @@ pub fn query_all(selector: &str) -> Vec<Element> {
   collect_node_list(&list)
 }
 
-pub fn query_all_in(element: Element, selector: &str) -> Vec<Element> {
+pub fn query_all_in(element: &Element, selector: &str) -> Vec<Element> {
   let list = element
     .query_selector_all(selector)
     .unwrap_throw();
