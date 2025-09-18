@@ -2,6 +2,7 @@
 
 pub mod dom;
 pub mod location;
+pub mod object;
 pub mod prelude;
 pub mod timer;
 

@@ -14,4 +14,5 @@ pub use crate::dom::{
   wait_ready,
 };
 pub use crate::location::{hostname, href, reload, set_href};
+pub use crate::object::Object;
 pub use crate::timer::{sleep, sleep_millis, sleep_mins, sleep_secs};

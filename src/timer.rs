@@ -79,13 +79,13 @@ pub async fn sleep(duration: Duration) {
 }
 
 pub async fn sleep_millis(millis: u64) {
-  sleep(Duration::from_millis(millis)).await
+  sleep(Duration::from_millis(millis)).await;
 }
 
 pub async fn sleep_secs(secs: u64) {
-  sleep(Duration::from_secs(secs)).await
+  sleep(Duration::from_secs(secs)).await;
 }
 
 pub async fn sleep_mins(mins: u64) {
-  sleep(Duration::from_mins(mins)).await
+  sleep(Duration::from_mins(mins)).await;
 }
