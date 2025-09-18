@@ -1,6 +1,7 @@
 use js_sys::Reflect;
 use wasm_bindgen::prelude::*;
 
+#[derive(Clone, Default)]
 pub struct Object(js_sys::Object);
 
 impl Object {
@@ -36,9 +37,9 @@ impl Object {
   }
 }
 
-impl Default for Object {
-  fn default() -> Self {
-    Self::new()
+impl AsRef<JsValue> for Object {
+  fn as_ref(&self) -> &JsValue {
+    self.0.as_ref()
   }
 }
 
