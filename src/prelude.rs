@@ -1,7 +1,9 @@
 pub use crate::dom::{
   click,
   click_on,
+  create_observer,
   document,
+  from_node_list,
   is_ready,
   query,
   query_all,

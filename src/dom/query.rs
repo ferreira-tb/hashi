@@ -1,9 +1,10 @@
 use super::document;
+use super::node::from_node_list;
 use crate::timer::sleep;
 use js_sys::Date;
 use std::time::Duration;
 use wasm_bindgen::prelude::*;
-use web_sys::{Element, NodeList};
+use web_sys::Element;
 
 pub fn query(selector: &str) -> Option<Element> {
   document()
@@ -22,7 +23,7 @@ pub fn query_all(selector: &str) -> Vec<Element> {
     .query_selector_all(selector)
     .unwrap_throw();
 
-  collect_node_list(&list)
+  from_node_list(&list).unwrap_or_default()
 }
 
 pub fn query_all_in(element: &Element, selector: &str) -> Vec<Element> {
@@ -30,7 +31,7 @@ pub fn query_all_in(element: &Element, selector: &str) -> Vec<Element> {
     .query_selector_all(selector)
     .unwrap_throw();
 
-  collect_node_list(&list)
+  from_node_list(&list).unwrap_or_default()
 }
 
 pub async fn wait_element(selector: &str, secs: u32) -> Option<Element> {
@@ -46,13 +47,4 @@ pub async fn wait_element(selector: &str, secs: u32) -> Option<Element> {
 
     sleep(interval).await;
   }
-}
-
-fn collect_node_list(list: &NodeList) -> Vec<Element> {
-  js_sys::try_iter(list)
-    .unwrap_throw()
-    .unwrap_throw()
-    .map(|value| value.map(JsCast::unchecked_into))
-    .try_collect()
-    .unwrap_throw()
 }
