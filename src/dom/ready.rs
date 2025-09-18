@@ -10,16 +10,14 @@ pub fn is_ready() -> bool {
 }
 
 pub async fn wait_ready(secs: u32) {
-  let mut ready = is_ready();
   let interval = Duration::from_millis(50);
   let timeout = Date::now() + (f64::from(secs) * 1000.0);
 
   loop {
-    if ready || Date::now() > timeout {
+    if !is_ready() && Date::now() < timeout {
+      sleep(interval).await;
+    } else {
       break;
     }
-
-    sleep(interval).await;
-    ready = is_ready();
   }
 }
