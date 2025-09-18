@@ -18,6 +18,14 @@ impl Object {
     Reflect::get(&self.0, &key.into())
   }
 
+  pub fn get_dyn<T: JsCast>(&self, key: &str) -> Result<T, JsValue> {
+    self.get(key).and_then(JsCast::dyn_into)
+  }
+
+  pub fn get_unchecked<T: JsCast>(&self, key: &str) -> Result<T, JsValue> {
+    self.get(key).map(JsCast::unchecked_into)
+  }
+
   pub fn set(&self, key: &str, value: &JsValue) -> Result<&Self, JsValue> {
     Reflect::set(&self.0, &key.into(), value)?;
     Ok(self)
