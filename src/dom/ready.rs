@@ -4,6 +4,7 @@ use js_sys::Date;
 use std::time::Duration;
 
 pub fn is_ready() -> bool {
+  // https://developer.mozilla.org/en-US/docs/Web/API/Document/readyState
   document()
     .ready_state()
     .eq_ignore_ascii_case("complete")
