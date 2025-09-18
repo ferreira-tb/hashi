@@ -34,12 +34,6 @@ impl Default for Object {
   }
 }
 
-impl From<Object> for JsValue {
-  fn from(value: Object) -> Self {
-    value.0.into()
-  }
-}
-
 impl From<Object> for js_sys::Object {
   fn from(value: Object) -> Self {
     value.0
@@ -49,5 +43,19 @@ impl From<Object> for js_sys::Object {
 impl From<js_sys::Object> for Object {
   fn from(value: js_sys::Object) -> Self {
     Self(value)
+  }
+}
+
+impl From<Object> for JsValue {
+  fn from(value: Object) -> Self {
+    value.0.into()
+  }
+}
+
+impl TryFrom<JsValue> for Object {
+  type Error = JsValue;
+
+  fn try_from(value: JsValue) -> Result<Self, Self::Error> {
+    Ok(Self(value.dyn_into()?))
   }
 }
