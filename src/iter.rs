@@ -3,16 +3,16 @@ use std::marker::PhantomData;
 use wasm_bindgen::prelude::*;
 
 pub struct JsCastIter<T: JsCast> {
+  #[expect(unused)]
+  value: JsValue,
   iter: Option<IntoIter>,
   phantom: PhantomData<T>,
 }
 
 impl<T: JsCast> JsCastIter<T> {
-  pub fn new(value: &JsValue) -> Self {
-    Self {
-      iter: try_iter(value).unwrap_or_default(),
-      phantom: PhantomData,
-    }
+  pub fn new(value: JsValue) -> Self {
+    let iter = try_iter(&value).unwrap_or_default();
+    Self { value, iter, phantom: PhantomData }
   }
 }
 
@@ -32,6 +32,6 @@ impl<T: JsCast> Iterator for JsCastIter<T> {
   }
 }
 
-pub fn cast_iter<T: JsCast>(value: &JsValue) -> JsCastIter<T> {
+pub fn cast_iter<T: JsCast>(value: JsValue) -> JsCastIter<T> {
   JsCastIter::new(value)
 }

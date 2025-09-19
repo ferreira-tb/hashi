@@ -23,7 +23,7 @@ pub fn query_all(selector: &str) -> JsCastIter<Element> {
     .query_selector_all(selector)
     .unwrap_throw();
 
-  JsCastIter::new(&list)
+  JsCastIter::new(list.into())
 }
 
 pub fn query_all_in(element: &Element, selector: &str) -> JsCastIter<Element> {
@@ -31,7 +31,7 @@ pub fn query_all_in(element: &Element, selector: &str) -> JsCastIter<Element> {
     .query_selector_all(selector)
     .unwrap_throw();
 
-  JsCastIter::new(&list)
+  JsCastIter::new(list.into())
 }
 
 pub async fn wait_element(selector: &str, secs: u32) -> Option<Element> {
