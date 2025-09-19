@@ -1,5 +1,5 @@
 use super::document;
-use super::node::from_node_list;
+use crate::iter::JsCastIter;
 use crate::timer::sleep;
 use js_sys::Date;
 use std::time::Duration;
@@ -18,20 +18,20 @@ pub fn query_in(element: &Element, selector: &str) -> Option<Element> {
     .unwrap_throw()
 }
 
-pub fn query_all(selector: &str) -> Vec<Element> {
+pub fn query_all(selector: &str) -> JsCastIter<Element> {
   let list = document()
     .query_selector_all(selector)
     .unwrap_throw();
 
-  from_node_list(&list).unwrap_or_default()
+  JsCastIter::new(&list)
 }
 
-pub fn query_all_in(element: &Element, selector: &str) -> Vec<Element> {
+pub fn query_all_in(element: &Element, selector: &str) -> JsCastIter<Element> {
   let list = element
     .query_selector_all(selector)
     .unwrap_throw();
 
-  from_node_list(&list).unwrap_or_default()
+  JsCastIter::new(&list)
 }
 
 pub async fn wait_element(selector: &str, secs: u32) -> Option<Element> {

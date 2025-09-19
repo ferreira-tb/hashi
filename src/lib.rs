@@ -1,6 +1,7 @@
 #![feature(iterator_try_collect)]
 
 pub mod dom;
+pub mod iter;
 pub mod location;
 pub mod object;
 pub mod prelude;
