@@ -16,3 +16,4 @@ pub use crate::dom::{
 pub use crate::location::{hostname, href, reload, set_href};
 pub use crate::object::Object;
 pub use crate::timer::{sleep, sleep_millis, sleep_mins, sleep_secs};
+pub use crate::value::JsValueExt;

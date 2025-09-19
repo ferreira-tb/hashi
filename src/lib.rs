@@ -5,6 +5,7 @@ pub mod location;
 pub mod object;
 pub mod prelude;
 pub mod timer;
+pub mod value;
 
 pub use prelude::*;
 
