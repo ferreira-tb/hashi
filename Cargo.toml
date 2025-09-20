@@ -1,9 +1,9 @@
 [package]
 name = "hashi"
 description = "WASM utilities"
-version = "0.0.19"
+version = "0.0.20"
 edition = "2024"
-rust-version = "1.91"
+rust-version = "1.92"
 license = "MIT"
 homepage = "https://github.com/ferreira-tb/hashi"
 repository = "https://github.com/ferreira-tb/hashi"

@@ -14,6 +14,10 @@ impl<T: JsCast> JsCastIter<T> {
       phantom: PhantomData,
     }
   }
+
+  pub fn empty() -> Self {
+    Self { iter: None, phantom: PhantomData }
+  }
 }
 
 impl<T: JsCast> Iterator for JsCastIter<T> {

@@ -1,16 +1,14 @@
-pub use crate::dom::mouse::{click, click_on, wait_click, wait_click_ms};
+pub use crate::dom::mouse::{click_on, wait_click, wait_click_ms};
 pub use crate::dom::observer::create_observer;
 pub use crate::dom::query::{
-  exists,
-  exists_in,
-  query,
-  query_all,
-  query_all_in,
-  query_in,
   wait_element,
   wait_element_in,
   wait_element_ms,
   wait_element_ms_in,
+  wait_elements,
+  wait_elements_in,
+  wait_elements_ms,
+  wait_elements_ms_in,
   wait_exists,
   wait_exists_in,
   wait_exists_ms,
