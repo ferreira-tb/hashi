@@ -7,6 +7,7 @@ pub mod object;
 pub mod prelude;
 pub mod timer;
 pub mod value;
+pub mod console;
 
 pub use prelude::*;
 

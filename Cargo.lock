@@ -111,7 +111,7 @@ dependencies = [
 
 [[package]]
 name = "hashi"
-version = "0.0.21"
+version = "0.0.22"
 dependencies = [
  "futures",
  "js-sys",
