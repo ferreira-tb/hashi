@@ -34,9 +34,9 @@ pub async fn wait_click_ms(selector: &str, ms: u32) -> Result<bool, JsValue> {
 #[macro_export]
 macro_rules! c {
   ($sel:expr) => {{ $crate::click($sel) }};
-  ($sel:expr, $time:literal) => {{ $crate::wait_click($sel, $time).await }};
-  ($sel:expr, $time:literal ms) => {{ $crate::wait_click_ms($sel, $time).await }};
-  ($sel:expr, $time:literal millis) => {{ $crate::wait_click_ms($sel, $time).await }};
-  ($sel:expr, $time:literal s) => {{ $crate::wait_click($sel, $time).await }};
-  ($sel:expr, $time:literal secs) => {{ $crate::wait_click($sel, $time).await }};
+  ($sel:expr, $time:literal) => {{ $crate::wait_click($sel, $time) }};
+  ($sel:expr, $time:literal ms) => {{ $crate::wait_click_ms($sel, $time) }};
+  ($sel:expr, $time:literal millis) => {{ $crate::wait_click_ms($sel, $time) }};
+  ($sel:expr, $time:literal s) => {{ $crate::wait_click($sel, $time) }};
+  ($sel:expr, $time:literal secs) => {{ $crate::wait_click($sel, $time) }};
 }

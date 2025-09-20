@@ -97,39 +97,39 @@ pub async fn wait_exists_ms_in(element: &Element, selector: &str, ms: u32) -> bo
 #[macro_export]
 macro_rules! q {
   ($sel:expr) => {{ $crate::query($sel) }};
-  ($sel:expr, $time:literal) => {{ $crate::wait_element($sel, $time).await }};
-  ($sel:expr, $time:literal ms) => {{ $crate::wait_element_ms($sel, $time).await }};
-  ($sel:expr, $time:literal millis) => {{ $crate::wait_element_ms($sel, $time).await }};
-  ($sel:expr, $time:literal s) => {{ $crate::wait_element($sel, $time).await }};
-  ($sel:expr, $time:literal secs) => {{ $crate::wait_element($sel, $time).await }};
+  ($sel:expr, $time:literal) => {{ $crate::wait_element($sel, $time) }};
+  ($sel:expr, $time:literal ms) => {{ $crate::wait_element_ms($sel, $time) }};
+  ($sel:expr, $time:literal millis) => {{ $crate::wait_element_ms($sel, $time) }};
+  ($sel:expr, $time:literal s) => {{ $crate::wait_element($sel, $time) }};
+  ($sel:expr, $time:literal secs) => {{ $crate::wait_element($sel, $time) }};
 }
 
 #[macro_export]
 macro_rules! qi {
   ($element:expr, $sel:expr) => {{ $crate::query_in($element, $sel) }};
-  ($element:expr, $sel:expr, $time:literal) => {{ $crate::wait_element_in($element, $sel, $time).await }};
-  ($element:expr, $sel:expr, $time:literal ms) => {{ $crate::wait_element_ms_in($element, $sel, $time).await }};
-  ($element:expr, $sel:expr, $time:literal millis) => {{ $crate::wait_element_ms_in($element, $sel, $time).await }};
-  ($element:expr, $sel:expr, $time:literal s) => {{ $crate::wait_element_in($element, $sel, $time).await }};
-  ($element:expr, $sel:expr, $time:literal secs) => {{ $crate::wait_element_in($element, $sel, $time).await }};
+  ($element:expr, $sel:expr, $time:literal) => {{ $crate::wait_element_in($element, $sel, $time) }};
+  ($element:expr, $sel:expr, $time:literal ms) => {{ $crate::wait_element_ms_in($element, $sel, $time) }};
+  ($element:expr, $sel:expr, $time:literal millis) => {{ $crate::wait_element_ms_in($element, $sel, $time) }};
+  ($element:expr, $sel:expr, $time:literal s) => {{ $crate::wait_element_in($element, $sel, $time) }};
+  ($element:expr, $sel:expr, $time:literal secs) => {{ $crate::wait_element_in($element, $sel, $time) }};
 }
 
 #[macro_export]
 macro_rules! e {
   ($sel:expr) => {{ $crate::exists($sel) }};
-  ($sel:expr, $time:literal) => {{ $crate::wait_exists($sel, $time).await }};
-  ($sel:expr, $time:literal ms) => {{ $crate::wait_exists_ms($sel, $time).await }};
-  ($sel:expr, $time:literal millis) => {{ $crate::wait_exists_ms($sel, $time).await }};
-  ($sel:expr, $time:literal s) => {{ $crate::wait_exists($sel, $time).await }};
-  ($sel:expr, $time:literal secs) => {{ $crate::wait_exists($sel, $time).await }};
+  ($sel:expr, $time:literal) => {{ $crate::wait_exists($sel, $time) }};
+  ($sel:expr, $time:literal ms) => {{ $crate::wait_exists_ms($sel, $time) }};
+  ($sel:expr, $time:literal millis) => {{ $crate::wait_exists_ms($sel, $time) }};
+  ($sel:expr, $time:literal s) => {{ $crate::wait_exists($sel, $time) }};
+  ($sel:expr, $time:literal secs) => {{ $crate::wait_exists($sel, $time) }};
 }
 
 #[macro_export]
 macro_rules! ei {
   ($element:expr, $sel:expr) => {{ $crate::exists_in($element, $sel) }};
-  ($element:expr, $sel:expr, $time:literal) => {{ $crate::wait_exists_in($element, $sel, $time).await }};
-  ($element:expr, $sel:expr, $time:literal ms) => {{ $crate::wait_exists_ms_in($element, $sel, $time).await }};
-  ($element:expr, $sel:expr, $time:literal millis) => {{ $crate::wait_exists_ms_in($element, $sel, $time).await }};
-  ($element:expr, $sel:expr, $time:literal s) => {{ $crate::wait_exists_in($element, $sel, $time).await }};
-  ($element:expr, $sel:expr, $time:literal secs) => {{ $crate::wait_exists_in($element, $sel, $time).await }};
+  ($element:expr, $sel:expr, $time:literal) => {{ $crate::wait_exists_in($element, $sel, $time) }};
+  ($element:expr, $sel:expr, $time:literal ms) => {{ $crate::wait_exists_ms_in($element, $sel, $time) }};
+  ($element:expr, $sel:expr, $time:literal millis) => {{ $crate::wait_exists_ms_in($element, $sel, $time) }};
+  ($element:expr, $sel:expr, $time:literal s) => {{ $crate::wait_exists_in($element, $sel, $time) }};
+  ($element:expr, $sel:expr, $time:literal secs) => {{ $crate::wait_exists_in($element, $sel, $time) }};
 }
