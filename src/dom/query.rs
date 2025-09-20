@@ -63,6 +63,24 @@ pub async fn wait_exists_ms_in(element: &Element, selector: &str, ms: u32) -> bo
     .is_some()
 }
 
+pub async fn wait_text(selector: &str, secs: u32) -> Option<String> {
+  wait_text_ms(selector, secs.saturating_mul(1000)).await
+}
+
+pub async fn wait_text_ms(selector: &str, ms: u32) -> Option<String> {
+  let element = wait_element_ms(selector, ms).await;
+  internal::get_text(element.as_deref())
+}
+
+pub async fn wait_text_in(element: &Element, selector: &str, secs: u32) -> Option<String> {
+  wait_text_ms_in(element, selector, secs.saturating_mul(1000)).await
+}
+
+pub async fn wait_text_ms_in(element: &Element, selector: &str, ms: u32) -> Option<String> {
+  let element = &wait_element_ms_in(element, selector, ms).await;
+  internal::get_text(element.as_deref())
+}
+
 #[macro_export]
 macro_rules! query {
   ($sel:expr) => {{ $crate::dom::query::internal::query($sel) }};
@@ -123,14 +141,62 @@ macro_rules! exists_in {
   ($element:expr, $sel:expr, $time:literal secs) => {{ $crate::wait_exists_in($element, $sel, $time) }};
 }
 
-pub(crate) mod internal {
+#[macro_export]
+macro_rules! text {
+  ($sel:expr) => {{
+    use $crate::dom::query::internal::get_text;
+    get_text($crate::query!($sel).as_deref())
+  }};
+  ($sel:expr, $time:literal) => {{ $crate::wait_text($sel, $time) }};
+  ($sel:expr, $time:literal ms) => {{ $crate::wait_text_ms($sel, $time) }};
+  ($sel:expr, $time:literal millis) => {{ $crate::wait_text_ms($sel, $time) }};
+  ($sel:expr, $time:literal s) => {{ $crate::wait_text($sel, $time) }};
+  ($sel:expr, $time:literal secs) => {{ $crate::wait_text($sel, $time) }};
+}
+
+#[macro_export]
+macro_rules! text_in {
+  ($element:expr, $sel:expr) => {{
+    use $crate::dom::query::internal::get_text;
+    get_text($crate::query_in!($element, $sel).as_deref())
+  }};
+  ($element:expr, $sel:expr, $time:literal) => {{ $crate::wait_text_in($element, $sel, $time) }};
+  ($element:expr, $sel:expr, $time:literal ms) => {{ $crate::wait_text_ms_in($element, $sel, $time) }};
+  ($element:expr, $sel:expr, $time:literal millis) => {{ $crate::wait_text_ms_in($element, $sel, $time) }};
+  ($element:expr, $sel:expr, $time:literal s) => {{ $crate::wait_text_in($element, $sel, $time) }};
+  ($element:expr, $sel:expr, $time:literal secs) => {{ $crate::wait_text_in($element, $sel, $time) }};
+}
+
+pub mod prelude {
+  pub use super::{
+    wait_element,
+    wait_element_in,
+    wait_element_ms,
+    wait_element_ms_in,
+    wait_elements,
+    wait_elements_in,
+    wait_elements_ms,
+    wait_elements_ms_in,
+    wait_exists,
+    wait_exists_in,
+    wait_exists_ms,
+    wait_exists_ms_in,
+    wait_text,
+    wait_text_in,
+    wait_text_ms,
+    wait_text_ms_in,
+  };
+  pub use crate::{exists, exists_in, query, query_all, query_all_in, query_in, text, text_in};
+}
+
+pub mod internal {
   use crate::dom::document;
   use crate::iter::JsCastIter;
   use crate::timer::sleep;
   use js_sys::Date;
   use std::time::Duration;
   use wasm_bindgen::prelude::*;
-  use web_sys::Element;
+  use web_sys::{Element, Node};
 
   pub fn query(selector: &str) -> Option<Element> {
     document()
@@ -176,5 +242,11 @@ pub(crate) mod internal {
 
       sleep(interval).await;
     }
+  }
+
+  pub fn get_text(node: Option<&Node>) -> Option<String> {
+    node
+      .and_then(Node::text_content)
+      .filter(|text| !text.is_empty())
   }
 }

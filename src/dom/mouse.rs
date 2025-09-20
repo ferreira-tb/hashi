@@ -38,3 +38,8 @@ macro_rules! click {
   ($sel:expr, $time:literal s) => {{ $crate::wait_click($sel, $time) }};
   ($sel:expr, $time:literal secs) => {{ $crate::wait_click($sel, $time) }};
 }
+
+pub mod prelude {
+  pub use super::{click_on, wait_click, wait_click_ms};
+  pub use crate::click;
+}
