@@ -9,7 +9,11 @@ pub use crate::dom::{
   query_all_in,
   query_in,
   wait_click,
-  wait_element,
+  wait_click_millis,
+  wait_click_secs,
+  wait_el,
+  wait_el_millis,
+  wait_el_secs,
   wait_ready,
 };
 pub use crate::iter::{JsCastIter, cast_iter};

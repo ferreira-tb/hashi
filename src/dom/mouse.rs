@@ -1,4 +1,4 @@
-use crate::dom::query::{query, wait_element};
+use crate::dom::query::{query, wait_el_millis};
 use crate::window;
 use wasm_bindgen::prelude::*;
 use web_sys::{Element, MouseEvent, MouseEventInit};
@@ -20,9 +20,17 @@ pub fn click(selector: &str) -> Result<bool, JsValue> {
   }
 }
 
-pub async fn wait_click(selector: &str, secs: u32) -> Result<bool, JsValue> {
-  match wait_element(selector, secs).await {
+pub async fn wait_click_millis(selector: &str, millis: u32) -> Result<bool, JsValue> {
+  match wait_el_millis(selector, millis).await {
     Some(element) => click_on(&element),
     None => Ok(false),
   }
+}
+
+pub async fn wait_click(selector: &str) -> Result<bool, JsValue> {
+  wait_click_secs(selector, 30).await
+}
+
+pub async fn wait_click_secs(selector: &str, secs: u32) -> Result<bool, JsValue> {
+  wait_click_millis(selector, secs.saturating_mul(1000)).await
 }

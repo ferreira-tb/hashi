@@ -23,7 +23,7 @@ pub fn query_all(selector: &str) -> JsCastIter<Element> {
     .query_selector_all(selector)
     .unwrap_throw();
 
-  JsCastIter::new(list.into())
+  JsCastIter::new(&list)
 }
 
 pub fn query_all_in(element: &Element, selector: &str) -> JsCastIter<Element> {
@@ -31,12 +31,12 @@ pub fn query_all_in(element: &Element, selector: &str) -> JsCastIter<Element> {
     .query_selector_all(selector)
     .unwrap_throw();
 
-  JsCastIter::new(list.into())
+  JsCastIter::new(&list)
 }
 
-pub async fn wait_element(selector: &str, secs: u32) -> Option<Element> {
+pub async fn wait_el_millis(selector: &str, millis: u32) -> Option<Element> {
   let interval = Duration::from_millis(100);
-  let timeout = Date::now() + (f64::from(secs) * 1000.0);
+  let timeout = Date::now() + f64::from(millis);
 
   loop {
     if let Some(element) = query(selector) {
@@ -47,4 +47,12 @@ pub async fn wait_element(selector: &str, secs: u32) -> Option<Element> {
 
     sleep(interval).await;
   }
+}
+
+pub async fn wait_el(selector: &str) -> Option<Element> {
+  wait_el_secs(selector, 30).await
+}
+
+pub async fn wait_el_secs(selector: &str, secs: u32) -> Option<Element> {
+  wait_el_millis(selector, secs.saturating_mul(1000)).await
 }

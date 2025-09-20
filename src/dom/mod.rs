@@ -6,9 +6,9 @@ mod ready;
 use wasm_bindgen::prelude::*;
 use web_sys::Element;
 
-pub use mouse::{click, click_on, wait_click};
+pub use mouse::{click, click_on, wait_click, wait_click_millis, wait_click_secs};
 pub use observer::create_observer;
-pub use query::{query, query_all, query_all_in, query_in, wait_element};
+pub use query::{query, query_all, query_all_in, query_in, wait_el, wait_el_millis, wait_el_secs};
 pub use ready::{is_ready, wait_ready};
 
 pub fn document() -> web_sys::Document {
