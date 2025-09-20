@@ -1,21 +1,22 @@
-pub use crate::dom::{
-  click,
-  click_on,
-  create_observer,
-  document,
-  is_ready,
+pub use crate::dom::mouse::{click, click_on, wait_click, wait_click_ms};
+pub use crate::dom::observer::create_observer;
+pub use crate::dom::query::{
+  exists,
+  exists_in,
   query,
   query_all,
   query_all_in,
   query_in,
-  wait_click,
-  wait_click_millis,
-  wait_click_secs,
-  wait_el,
-  wait_el_millis,
-  wait_el_secs,
-  wait_ready,
+  wait_element,
+  wait_element_in,
+  wait_element_ms,
+  wait_element_ms_in,
+  wait_exists,
+  wait_exists_in,
+  wait_exists_ms,
+  wait_exists_ms_in,
 };
+pub use crate::dom::ready::{is_ready, wait_ready};
 pub use crate::iter::{JsCastIter, cast_iter};
 pub use crate::location::{hostname, href, reload, set_href};
 pub use crate::object::Object;

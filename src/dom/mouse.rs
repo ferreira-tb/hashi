@@ -1,4 +1,4 @@
-use crate::dom::query::{query, wait_el_millis};
+use crate::dom::query::{query, wait_element_ms};
 use crate::window;
 use wasm_bindgen::prelude::*;
 use web_sys::{Element, MouseEvent, MouseEventInit};
@@ -20,17 +20,23 @@ pub fn click(selector: &str) -> Result<bool, JsValue> {
   }
 }
 
-pub async fn wait_click_millis(selector: &str, millis: u32) -> Result<bool, JsValue> {
-  match wait_el_millis(selector, millis).await {
+pub async fn wait_click(selector: &str, secs: u32) -> Result<bool, JsValue> {
+  wait_click_ms(selector, secs.saturating_mul(1000)).await
+}
+
+pub async fn wait_click_ms(selector: &str, ms: u32) -> Result<bool, JsValue> {
+  match wait_element_ms(selector, ms).await {
     Some(element) => click_on(&element),
     None => Ok(false),
   }
 }
 
-pub async fn wait_click(selector: &str) -> Result<bool, JsValue> {
-  wait_click_secs(selector, 30).await
-}
-
-pub async fn wait_click_secs(selector: &str, secs: u32) -> Result<bool, JsValue> {
-  wait_click_millis(selector, secs.saturating_mul(1000)).await
+#[macro_export]
+macro_rules! c {
+  ($sel:expr) => {{ $crate::click($sel) }};
+  ($sel:expr, $time:literal) => {{ $crate::wait_click($sel, $time).await }};
+  ($sel:expr, $time:literal ms) => {{ $crate::wait_click_ms($sel, $time).await }};
+  ($sel:expr, $time:literal millis) => {{ $crate::wait_click_ms($sel, $time).await }};
+  ($sel:expr, $time:literal s) => {{ $crate::wait_click($sel, $time).await }};
+  ($sel:expr, $time:literal secs) => {{ $crate::wait_click($sel, $time).await }};
 }
