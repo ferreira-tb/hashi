@@ -1,3 +1,4 @@
+use crate::JsResult;
 use num_traits::ToPrimitive;
 use serde::de::DeserializeOwned;
 use serde_wasm_bindgen::from_value;
@@ -17,7 +18,7 @@ pub trait JsValueExt {
 
   fn as_str_arc(&self) -> Option<Arc<str>>;
 
-  fn into_serde<T>(self) -> Result<T, JsValue>
+  fn into_serde<T>(self) -> JsResult<T>
   where
     T: DeserializeOwned;
 }
@@ -59,7 +60,7 @@ impl JsValueExt for JsValue {
     self.as_string().map(Arc::from)
   }
 
-  fn into_serde<T>(self) -> Result<T, JsValue>
+  fn into_serde<T>(self) -> JsResult<T>
   where
     T: DeserializeOwned,
   {

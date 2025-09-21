@@ -1,4 +1,4 @@
-pub use crate::console::Console;
+pub use crate::console::{Console, print, print_err};
 pub use crate::dom::mouse::prelude::*;
 pub use crate::dom::observer::create_observer;
 pub use crate::dom::query::prelude::*;

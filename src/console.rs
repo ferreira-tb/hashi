@@ -4,16 +4,30 @@ use web_sys::console;
 
 pub trait Console: Serialize {
   fn print(&self) {
-    if let Ok(value) = to_value(self) {
-      console::log_1(&value);
-    }
+    print(self);
   }
 
   fn print_err(&self) {
-    if let Ok(value) = to_value(self) {
-      console::error_1(&value);
-    }
+    print_err(self);
   }
 }
 
 impl<T> Console for T where T: Serialize {}
+
+pub fn print<T>(value: &T)
+where
+  T: Serialize + ?Sized,
+{
+  if let Ok(value) = to_value(value) {
+    console::log_1(&value);
+  }
+}
+
+pub fn print_err<T>(value: &T)
+where
+  T: Serialize + ?Sized,
+{
+  if let Ok(value) = to_value(value) {
+    console::error_1(&value);
+  }
+}
