@@ -27,7 +27,7 @@ pub async fn wait_click_ms(selector: &str, ms: u32) -> Result<bool, JsValue> {
 #[macro_export]
 macro_rules! click {
   ($sel:expr) => {{
-    match $crate::query!(selector) {
+    match $crate::query!($sel) {
       Some(element) => $crate::click_on(&element),
       None => Ok(false),
     }
