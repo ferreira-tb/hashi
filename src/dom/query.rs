@@ -247,6 +247,6 @@ pub mod internal {
   pub fn get_text(node: Option<&Node>) -> Option<String> {
     node
       .and_then(Node::text_content)
-      .filter(|text| !text.is_empty())
+      .filter(|text| !text.trim().is_empty())
   }
 }
