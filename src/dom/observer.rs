@@ -1,8 +1,9 @@
+use crate::JsResult;
 use js_sys::Function;
 use wasm_bindgen::prelude::*;
 use web_sys::{MutationObserver, MutationRecord};
 
-pub fn create_observer<F>(callback: F) -> Result<MutationObserver, JsValue>
+pub fn create_observer<F>(callback: F) -> JsResult<MutationObserver>
 where
   F: Fn(Vec<MutationRecord>, MutationObserver) + 'static,
 {

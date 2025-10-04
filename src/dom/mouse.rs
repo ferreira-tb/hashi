@@ -1,23 +1,26 @@
 use crate::dom::query::wait_element_ms;
-use crate::window;
-use wasm_bindgen::prelude::*;
+use crate::{JsResult, window};
 use web_sys::{Element, MouseEvent, MouseEventInit};
 
-pub fn click_on(element: &Element) -> Result<bool, JsValue> {
+pub fn emit(element: &Element, event: &str) -> JsResult<bool> {
   let init = MouseEventInit::new();
   init.set_bubbles(true);
   init.set_cancelable(true);
   init.set_view(Some(&window()));
 
-  MouseEvent::new_with_mouse_event_init_dict("click", &init)
+  MouseEvent::new_with_mouse_event_init_dict(event, &init)
     .and_then(|event| element.dispatch_event(&event))
 }
 
-pub async fn wait_click(selector: &str, secs: u32) -> Result<bool, JsValue> {
+pub fn click_on(element: &Element) -> JsResult<bool> {
+  emit(element, "click")
+}
+
+pub async fn wait_click(selector: &str, secs: u32) -> JsResult<bool> {
   wait_click_ms(selector, secs.saturating_mul(1000)).await
 }
 
-pub async fn wait_click_ms(selector: &str, ms: u32) -> Result<bool, JsValue> {
+pub async fn wait_click_ms(selector: &str, ms: u32) -> JsResult<bool> {
   match wait_element_ms(selector, ms).await {
     Some(element) => click_on(&element),
     None => Ok(false),
